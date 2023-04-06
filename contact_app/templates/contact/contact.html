@@ -1,0 +1,13 @@
+{% if contact %}
+<h1>{{contact.title}}</h1>
+{{contact.content|safe}}
+<hr>
+contact form:
+<form action="{% url 'contact:contact' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Sent</button>
+</form>
+{% else %}
+<p>Contact Not Found</p>
+{% endif %}

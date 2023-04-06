@@ -1,0 +1,6 @@
+{% if about %}
+<h1>{{about.title}}</h1>
+{{about.content|safe}}
+{% else %}
+<p>Content Not Found</p>
+{% endif %}

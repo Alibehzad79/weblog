@@ -1,0 +1,14 @@
+<form action="{% url 'search:search' %}" method="get">
+  <input type="search" name="q" value="{{request.GET.q}}">
+  <button type="submit">Search</button>
+</form>
+
+<hr>
+<br>
+{{seo}} <br />
+{% if articles %}
+  {% for article in articles %}
+    <a href="{{article.get_absolute_url}}">{{ article.title }}</a><br />
+    {{article.date_created}} <br />
+  {% endfor %}
+{% endif %}

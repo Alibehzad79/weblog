@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  {{article_seo.get_charset}}
+  {{article_seo.get_viewport}}
+  {{article_seo.get_keywords}}
+  {{article_seo.get_description}}
+  {{article_seo.get_subject}}
+  {{article_seo.get_author}}
+  {{article_seo.get_refresh}}
+  <title>{{article.title}}</title>
+</head>
+<body>
+{% if article %}
+  <p>Title: {{ article.title }}</p>
+  {{ article.content|safe }}
+  <p>category: <a href="{% url 'blog:article_category' article.category.slug %}">{{article.category.name}}</a></p>
+  <p>
+    Tags:
+    {% for tag in article.tags.all %}
+        <a href="{% url 'blog:article_tag' tag.slug %}">{{tag.name}}</a>
+        {% if forloop.last %}{% else %},{% endif %}
+    {% endfor %}     
+  </p>
+  <img src="{{ article.image.url }}" alt="image" />
+
+  <hr>
+  <h4>Realated Articles</h4>
+  
+  {% for related_article in related_articles %}
+    {{related_article.title}}
+  {% endfor %}
+  <hr>
+  <h3>ارسال کامنت</h3>
+  <form action="{{ article.get_absolute_url }}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+  </form>
+
+  <br />
+  <hr />
+<h3>کامنت ها</h3>
+  {% if comments %}
+    {% for comment in comments %}
+      {{ comment.name }} <br />
+      {{ comment.date_sent }} <br />
+      {{ comment.comments }} <br />
+    {% endfor %}
+  {% else %}
+    <p>کامنتی وجود ندارد</p>
+  {% endif %}
+{% endif %}
+
+</body>
+</html>

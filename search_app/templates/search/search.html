@@ -1,0 +1,10 @@
+{% if articles %}
+
+{% for article in articles %}
+    {{article.title}}
+    {% if forloop.last %}{% else %}<hr />{% endif %}
+{% endfor %}
+    
+{% else %}
+<p>Content not Found</p>
+{% endif %}
