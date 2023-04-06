@@ -6,11 +6,11 @@ real weblolg
 git clone https://github.com/Alibehzad79/weblog.git
 -----------
 
-cd weblog
-source venv/bin/active
-cd blog
-python manage.py migrate
-python manage.py createsuperuser
+cd weblog <br />
+source venv/bin/active <br />
+cd blog <br /> 
+python manage.py migrate <br />
+python manage.py createsuperuser <br />
 
 -----------
 
