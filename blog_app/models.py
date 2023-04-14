@@ -24,7 +24,7 @@ class ArticleManager(models.Manager):
             Q(tags__slug__icontains=query)
         )
         
-        return self.get_queryset().filter(lookup, status=status).all().distinct()
+        return self.get_queryset().filter(lookup, status=status).all()
 
 class ArticleModel(models.Model):
     class Status(models.TextChoices):

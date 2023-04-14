@@ -14,17 +14,13 @@ class SearchArticleListView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        if query is None or query != "":
-            if Search.objects.filter(query_name=query).exists():
-                search_query = Search.objects.get(query_name=query)
-                search_query.search_count += 1
-                search_query.date_updated = datetime.now()
-                search_query.save()
-            else:
-                search_query = Search.objects.create(query_name=query, date_created=datetime.now(
+        try:
+            search_query = Search.objects.filter(query_name=query).all()
+            search_query = Search.objects.get(query_name=query)
+            search_query.search_count += 1
+            search_query.date_updated = datetime.now()
+            search_query.save()
+        except:
+            search_query = Search.objects.create(query_name=query, date_created=datetime.now(
                 ), date_updated=datetime.now(), search_count=1)
-            if search_query is not None:
-                search_query.save()
-            return ArticleModel.objects.get_search(query=query, status=ArticleModel.Status.published).order_by('-date_created')
-        else:
-            return ArticleModel.objects.get_search(query=query, status=ArticleModel.Status.published).order_by('-date_created')
+        return ArticleModel.objects.get_search(query=query, status=ArticleModel.Status.published).order_by('-date_created')

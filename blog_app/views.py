@@ -89,3 +89,7 @@ class TagModelListView(ListView):
     def get_queryset(self):
         tag_slug = self.kwargs['tag_slug']
         return super().get_queryset().filter(status=ArticleModel.Status.published, tags__slug=tag_slug).all().distinct().order_by('-date_created')
+
+
+def send_emails(emails, subject, text):
+    return(emails, subject, text)
