@@ -18,8 +18,7 @@ def contact_page(request):
             email = form.cleaned_data.get('email')
             subject = form.cleaned_data.get('subject')
             text = form.cleaned_data.get('text')
-            new_contact = ContactModelForm.objects.create(
-                name=name, email=email, subject=subject, text=text, date_sent=datetime.now())
+            new_contact = ContactModelForm.objects.create(name=name, email=email, subject=subject, text=text, date_sent=datetime.now())
             if new_contact is not None:
                 new_contact.save()
                 return redirect('contact:contact')

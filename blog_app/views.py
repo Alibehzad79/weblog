@@ -6,6 +6,8 @@ from blog_app.forms import ArticleCommentForm
 from comment_app.models import Comment
 from datetime import datetime
 from seo_app.models import ArticlesSEO
+from category_app.models import CategoryModel
+from tag_app.models import TagModel
 # Create your views here.
 
 
@@ -74,22 +76,45 @@ def article_detail(request, *args, **kwargs):
 class CategoryModelListView(ListView):
     model = ArticleModel
     template_name = "blog/articles_list.html"
-    context_object_name = 'articles'
+    context_object_name = 'page_obj'
+    paginate_by = 10
 
     def get_queryset(self):
         category_slug = self.kwargs['category_slug']
         return super().get_queryset().filter(status=ArticleModel.Status.published, category__slug=category_slug).all().distinct().order_by('-date_created')
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category_name"] = self.kwargs['category_slug']
+        return context
+    
 
 class TagModelListView(ListView):
     model = ArticleModel
     template_name = "blog/articles_list.html"
-    context_object_name = 'articles'
+    context_object_name = 'page_obj'
+    paginate_by = 10
 
     def get_queryset(self):
         tag_slug = self.kwargs['tag_slug']
         return super().get_queryset().filter(status=ArticleModel.Status.published, tags__slug=tag_slug).all().distinct().order_by('-date_created')
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tag_name"] = self.kwargs['tag_slug']
+        return context
 
 def send_emails(emails, subject, text):
     return(emails, subject, text)
+
+def sidebar(request):
+    template_name = 'blog/sidebar.html'
+    categories = CategoryModel.objects.all()
+    tags = TagModel.objects.all()
+    recent_posts = ArticleModel.objects.filter(status=ArticleModel.Status.published).order_by('-date_updated').all()[:4]
+    context = {
+        'categories': categories,
+        'tags': tags,
+        'recent_posts': recent_posts,
+    }
+    
+    return render(request, template_name, context)
+

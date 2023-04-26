@@ -1,0 +1,32 @@
+<div class="latest-posts pt-80 pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-tittle mb-35">
+                    <h2>پست های محبوب</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% if popular_posts %}
+                {% for post in popular_posts %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-baner-nw2 mb-30">
+                            <div class="banner-img-cap2">
+                                <div class="banner-img">
+                                    <a href="{{post.get_absolute_url}}"><img src="{{post.image.url}}" alt="{{post.title}}" width="362" height="294"></a>
+                                </div>
+                                <div class="banner-cap2">
+                                    <p class="text-right">{{post.category.name}}</p>
+                                    <h3 class="text-right"><a href="{{post.get_absolute_url}}">{{post.title}}</a></h3>
+                                    <p class="blog-text" style="text-transform: normal !important;">{{post.content|safe|truncatechars:150}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+        </div>
+    </div>
+</div>

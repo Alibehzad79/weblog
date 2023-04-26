@@ -1,13 +1,82 @@
+{% extends 'base/base.html' %}
+{% block seo %}{% endblock seo %}
+{% block title %}{{contact.title}}{% endblock title %}
+{% block custom_css %}{% endblock custom_css %}
+{% block content %}
 {% if contact %}
-<h1>{{contact.title}}</h1>
-{{contact.content|safe}}
-<hr>
-contact form:
-<form action="{% url 'contact:contact' %}" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Sent</button>
-</form>
+<main class="text-right">
+    <!-- breadcrumb Start-->
+    <div class="page-notification">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="{% url 'index:index' %}">خانه</a></li>
+                            <li class="breadcrumb-item">تماس با ما</li> 
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb End -->
+    <!--?  Contact Area start  -->
+    <section class="contact-section">
+        <div class="container">
+           
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="contact-title">تماس با ما</h2>
+                </div>
+                <div class="col-lg-8">
+                    <form class="form-contact contact_form" action="{% url 'contact:contact' %}" method="post"  novalidate="novalidate">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <div class="form-group mt-3">
+                            <button type="submit" class="button button-contactForm boxed-btn">ارسال</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                    {% if contact.addresses %}
+                        {% for address in contact.addresses.all %}
+                            <div class="media contact-info">
+                                <span class="contact-info__icon"><i class="ti-home"></i></span>
+                                <div class="media-body">
+                                    <h3 class="mx-2">{{address.address}}</h3>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                   {% if contact.telephones %}
+                    {% for telephone in contact.telephones.all %}
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                            <div class="media-body">
+                                <h3 class="mx-2"><a href="tel:{{telephone.phone}}">{{telephone.phone}}</a></h3>
+                            </div>
+                        </div>
+                    {% endfor %}
+                   {% endif %}
+                    {% if contact.emails %}
+                        {% for email in contact.emails.all %}
+                            <div class="media contact-info">
+                                <span class="contact-info__icon"><i class="ti-email"></i></span>
+                                <div class="media-body">
+                                    <h3 class="mx-2"><a href="mailto:{{email.email}}">{{email.email}}</a></h3>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Area End -->
+</main>
 {% else %}
-<p>Contact Not Found</p>
+<p class="p-4 text-center bg-primary text-white">درباره ما</p>
 {% endif %}
+{% endblock content %}
+{% block custom_js %}{% endblock custom_js %}

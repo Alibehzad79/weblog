@@ -1,0 +1,94 @@
+{% load static %}
+<div class="header-area">
+            <div class="main-header ">
+                <div class="header-top ">
+                   <div class="container-fluid">
+                       <div class="col-xl-12">
+                            <div class="row d-flex justify-content-lg-between align-items-center">
+                                <div class="header-info-left">
+                                    <li class="d-none d-lg-block">
+                                        <div class="form-box f-right ">
+                                           <form action="{% url 'search:search' %}" method="get">
+                                                <input type="text" name="q" value="{{request.GET.q}}" placeholder="چیزی تایپ کنید">
+                                                <div>
+                                                    <button type="submit" class="button w-100 btn_1 boxed-btn"><i class="ti-search"></i></button>
+                                                </div>
+                                           </form>
+                                        </div>
+                                     </li>
+                                </div>
+                                <div class="header-info-mid">
+                                    <!-- logo -->
+                                    <div class="logo">
+                                        <a href="/"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+
+                                    </div>
+                                </div>
+                                <div class="header-info-right d-flex align-items-center">
+                                   <ul>                                          
+                                       <li><a href="{% url 'blog:articles_list'  %}">مقاله ها</a></li>
+                                       <li><a href="{% url 'about:about'  %}">درباره ما</a></li>
+                                       <li><a href="{% url 'contact:contact'  %}">تماس با ما</a></li>
+                                       <li><a href="login.html">ورود یا ثبت نام</a></li>
+                                       
+                                   </ul>
+                                   <!-- Social -->
+                                   <div class="header-social">
+                                        <a href="#"><i class="fab fa-twitter"></i></a>
+                                        <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                   </div>
+                </div>
+               <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <!-- logo 2 -->
+                                <div class="logo2">
+                                    <a href="/"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                                </div>
+                                <!-- logo 3 -->
+                                <div class="logo3 d-block d-sm-none">
+                                    <div class="form-box f-right w-100">
+                                        <form action="{% url 'search:search' %}" method="get">
+                                             <input type="text" name="q" value="{{request.GET.q}}" placeholder="چیزی تایپ کنید">
+                                             <div>
+                                                 <button type="submit" class="button w-100 btn_1 boxed-btn"><i class="ti-search"></i></button>
+                                             </div>
+                                        </form>
+                                     </div>
+                                    <a href="/"><img src="{% static 'assets/img/logo/logo-mobile.png' %}" alt=""></a>
+                                </div>
+                                <!-- Main-menu -->
+                                <div class="main-menu text-center d-none d-lg-block">
+                                    <nav>                                                
+                                        <ul id="navigation">  
+                                            <ul class='d-sm-block d-md-none'>                                          
+                                                <li><a href="{% url 'blog:articles_list'  %}">مقاله ها</a></li>
+                                                <li><a href="{% url 'about:about'  %}">درباره ما</a></li>
+                                                <li><a href="{% url 'contact:contact'  %}">تماس با ما</a></li>
+                                                <li><a href="login.html">ورود یا ثبت نام</a></li>
+                                            </ul>
+                                            <h4 class='d-sm-block d-md-none'>دسته بندی ها</h4>                                                                                                                               
+                                            {% if categories %}
+                                                {% for category in categories %}
+                                                    <li><a href="{% url 'blog:article_category' category.slug %}">{{category.name}}</a></li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div> 
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+       </div>

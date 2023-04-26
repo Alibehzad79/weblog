@@ -1,0 +1,62 @@
+<div class="col-lg-4">
+    <div class="blog_right_sidebar">
+        <aside class="single_sidebar_widget search_widget">
+            <form action="{% url 'search:search' %}">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="text" name="q" value="{{request.GET.q}}" placeholder="چیزی تایپ کنید">
+                    </div>
+                </div>
+                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">جستوجو</button>
+            </form>
+        </aside>
+        <aside class="single_sidebar_widget post_category_widget text-right">
+            <h4 class="widget_title" style="color: #2d2d2d;">دسته بندی ها</h4>
+            <ul class="list cat-list">
+                {% if categories %}
+                {% for category in categories %}
+                <li>
+                    <a href="{% url 'blog:article_category' category.slug %}" class="d-flex">
+                        <p>{{category.name}}</p>
+                    </a>
+                </li>
+                {% endfor %}
+                {% else %}
+                <p class="alert alert-warning">دسته بندی یافت نشد</p>
+                {% endif %}
+            </ul>
+        </aside>
+        <aside class="single_sidebar_widget popular_post_widget text-right">
+            <h3 class="widget_title" style="color: #2d2d2d;">آخرین پست ها</h3>
+            {% if recent_posts %}
+            {% for post in recent_posts %}
+                <div class="media post_item">
+                    <a href="{{post.get_absolute_url}}"><img src="{{post.image.url}}" alt="{{post.title}}" width="80" height="80"></a>
+                    <div class="media-body text-right mx-3">
+                        <a href="{{post.get_absolute_url}}">
+                            <h3 style="color: #2d2d2d;">{{post.title}}</h3>
+                        </a>
+                        <p>{{post.date_created|date:"d F، Y"}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <p class="alert alert-warning">پستی یافت نشد</p>
+            {% endif %}
+        </aside>
+        <aside class="single_sidebar_widget tag_cloud_widget text-right">
+            <h4 class="widget_title" style="color: #2d2d2d;">تگ ها</h4>
+            <ul class="list">
+                {% if tags %}
+                {% for tag in tags %}
+                    <li>
+                        <a href="{% url 'blog:article_tag' tag.slug %}">{{tag.name}}</a>
+                    </li>
+                {% endfor %}
+                {% else %}
+                <p class="alert alert-warning">تگی یافت نشد</p>
+                {% endif %}
+            </ul>
+        </aside>
+    </div>
+</div>

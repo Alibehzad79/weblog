@@ -1,10 +1,123 @@
-{% if articles %}
+{% extends 'base\base.html' %}
+{% block seo %}{% endblock seo %}
+{% block custom_css %}{% endblock custom_css %}
+{% block title %}{% endblock title %}
+{% block content %}
+<main>
+    <!-- breadcrumb Start-->
+    <div class="page-notification">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="{% url 'index:index' %}">خانه</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb End -->
+    <!-- Top Posts Start -->
+    <div class="top-post-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-tittle mb-35">
+                        <h2>{{request.GET.q}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-lg-between">
+                <div class="col-lg-8 col-md-8">
+                    {% if articles %}
+                        {% for article in articles %}
+                            <!-- single-job-content -->
+                            <div class="single-job-items mb-30">
+                                <div class="job-items">
+                                    <div class="company-img">
+                                        <a href="{{article.get_absolute_url}}"><img src="{{article.image.url}}" alt="{{article.title}}" width="264" height="214"></a>
+                                    </div>
+                                    <div class="job-tittle mx-4 p-4">
+                                        <span class="text-right">{{article.category.name}}</span>
+                                        <a class="text-right" href="{{article.get_absolute_url}}"><h4>{{article.title}}</h4></a>
+                                        <p class="text-right">{{article.content|safe|truncatechars:150}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}      
+                        {% else %}
+                        <p class="alert alert-warning text-center">مقاله ای یافت نشد.</p>              
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Top Posts End -->
+    <!--Pagination Start  -->
+    <div class="pagination-area text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="single-wrap d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-start " id="myDIV">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span class="ti-angle-right"></span></a></li>
+                                {% endif %}
+                                {% for page in paginator.page_range %}
+                                    {% if page == page_obj.number %}
+                                        <li class="page-item active"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>    
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.next_page_number }}"><span class="ti-angle-left"></span></a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Pagination End  -->
+    <!-- Latest Posts Area -->
+    <div class="latest-posts pt-80 pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-tittle mb-35">
+                        <h2>آخرین پست ها</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for post in last_posts %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-baner-nw2 mb-30">
+                            <div class="banner-img-cap2">
+                                <div class="banner-img">
+                                    <a href="{{post.get_absolute_url}}"><img src="{{post.image.url}}" alt="{{post.title}}" width="264" height="214"></a>
+                                </div>
+                                <div class="banner-cap2">
+                                    <span class="text-right">{{post.category.name}}</span>
+                                        <a class="text-right" href="{{post.get_absolute_url}}"><h4>{{post.title}}</h4></a>
+                                        <p class="text-right text-blog">{{post.content|safe|truncatechars:150}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Latest Posts End-->
+    <!-- Want To work -->
 
-{% for article in articles %}
-    {{article.title}}
-    {% if forloop.last %}{% else %}<hr />{% endif %}
-{% endfor %}
-    
-{% else %}
-<p>Content not Found</p>
-{% endif %}
+</main>
+{% endblock content %}
+{% block custom_js %}{% endblock custom_js %}
+

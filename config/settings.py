@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'contact_app.apps.ContactAppConfig',
     'seo_app.apps.SeoAppConfig',
     'search_app.apps.SearchAppConfig',
+    'subscribe_app.apps.SubscribeAppConfig',
     # packages
     'django_render_partial',
     'ckeditor',
@@ -163,3 +164,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'cdn', 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts_app.CustomUser'
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"

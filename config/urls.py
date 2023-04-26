@@ -22,13 +22,17 @@ from django.conf.urls.static import static
 
 from django.contrib.sitemaps.views import sitemap
 from seo_app.sitemaps import *
-
 sitemaps = {
     'articles': ArticleModelSitemap,
+    'about': AboutModelSitemap,
+    'contact': ContactModelSitemap,
 }
 
+from home_app.views import home
 
 urlpatterns = [
+    path('', home),
+    path('', include('home_app.urls')),
     path('articles/', include('blog_app.urls')),
     path('about/', include('about_app.urls')),
     path('contact/', include('contact_app.urls')),

@@ -1,14 +1,200 @@
+{% extends 'base/base.html' %}
+{% load render_partial %}
+{% block seo %}
+{{article_seo.get_charset}}
+{{article_seo.get_viewport}}
+{{article_seo.get_keywords}}
+{{article_seo.get_description}}
+{{article_seo.get_subject}}
+{{article_seo.get_author}}
+{{article_seo.get_refresh}}
+{% endblock seo %}
+{% block title %}{{article.title}}{% endblock title %}
+{% block custom_css %}{% endblock custom_css %}
+{% block content %}
+<main>
+  <!-- breadcrumb Start-->
+  <div class="page-notification">
+   <div class="container">
+       <div class="row">
+           <div class="col-lg-12">
+               <nav aria-label="breadcrumb">
+                   <ol class="breadcrumb justify-content-center">
+                       <li class="breadcrumb-item"><a href="{% url 'index:index' %}">خانه</a></li>
+                       <li class="breadcrumb-item">{{article.title}}</li> 
+                   </ol>
+               </nav>
+           </div>
+       </div>
+   </div>
+</div>
+<!-- breadcrumb End -->
+<!--? Blog Area Start -->
+<section class="blog_area single-post-area section-padding text-right">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 posts-list">
+            <div class="single-post">
+               <div class="feature-img">
+                  <img class="img-fluid" src="{{article.image.url}}" alt="{{article.title}}" width="750" height="375">
+               </div>
+               <div class="blog_details">
+                  <h2 style="color: #2d2d2d;">{{article.title}}
+                  </h2>
+                  <ul class="mt-3 mb-4 d-flex class="mx-1"">
+                     <li class="mx-1"><a href="{% url 'blog:article_category' article.category.slug %}"><i class="fa fa-user"></i> {{article.category.slug}}</a></li>
+                     <li class="mx-1"><i class="fa fa-comments"></i> {{article.comments.count}}</li>
+                  </ul>
+                  {{article.content|safe}}
+                  <div class="mt-3">
+                    <span class="ml-3"><i class="fa fa-book mx-2"></i>دسته بندی: </span>
+                    <a href="{% url 'blog:article_category' article.category.slug %}">{{article.category.name}}</a>
+                  </div>
+                  <div class="d-flex flex-wrap my-3">
+                    <span class="ml-3"><i class="fa fa-hashtag mx-2"></i>تگ ها: </span>
+                    {% for tag in article.tags.all %}
+                    <a href="{% url 'blog:article_tag' tag.slug %}" class="ml-2">{{tag.name}}</a>
+                    {% if forloop.last %}{% else %}،{% endif %}
+                    {% endfor %}
+                  </div>
+               </div>
+            </div>
+            <div class="navigation-top">
+               <div class="d-sm-flex justify-content-between text-center">
+                  <div class="col-sm-4 text-center my-2 my-sm-0">
+                  </div>
+                  <ul class="social-icons">
+                     <li><a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
+                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                     <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+                     <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                  </ul>
+               </div>
+               <div class="navigation-area">
+                  <div class="row">
+                     {% if article.get_next_article %}
+                     <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                      <div class="thumb">
+                         <a href="{{article.get_next_article.get_absolute_url}}">
+                            <img class="img-fluid" src="{{article.get_next_article.image.url}}" width="60" height="60" alt="{{article.get_next_article.title}}">
+                         </a>
+                      </div>
+                      <div class="detials mx-2">
+                         <a href="{{article.get_next_article.get_absolute_url}}">
+                            <h4 style="color: #2d2d2d;">{{article.get_next_article.title}}</h4>
+                         </a>
+                      </div>
+                   </div>
+                   {% else %}
+                   <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                    <div class="thumb">
+                       
+                    </div>
+                    <div class="detials mx-2">
+                       
+                    </div>
+                 </div>
+                     {% endif %}
+                     {% if article.get_previous_article %}
+                        <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                          <div class="detials mx-2">
+                            <a href="{{article.get_previous_article.get_absolute_url}}">
+                                <h4 style="color: #2d2d2d;">{{article.get_previous_article.title}}</h4>
+                            </a>
+                          </div>
+                          <div class="thumb">
+                            <a href="{{article.get_previous_article.get_absolute_url}}">
+                              <img class="img-fluid" src="{{article.get_previous_article.image.url}}" width="60" height="60" alt="{{article.get_previous_article.title}}">
+                            </a>
+                          </div>
+                       </div>
+                       {% else %}
+                       <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                        <div class="detials">
+                          
+                        </div>
+                        <div class="thumb">
+                         
+                        </div>
+                     </div>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+            <div class="blog-author">
+               <div class="media align-items-center">
+                  {% if article.author.profile_photo %}
+                    <img src="assets/img/blog/author.png" alt="">
+                  {% endif %}
+                  <div class="media-body">
+                     <a href="#">
+                        <h4>{% if article.author.get_full_name %}{{article.author.get_full_name}} {% else %}{{article.author.username}}{% endif %}</h4>
+                     </a>
+                     {% if article.author.description %}
+                        <p>Second divided from form fish beast made. Every of seas all gathered use saying you're, he
+                          our dominion twon Second divided from
+                        </p>
+                      {% endif %}
+                  </div>
+               </div>
+            </div>
+            <div class="comments-area">
+               <h4>{{article.comments.count}} نظر</h4>
+               {% if comments %}
+                {% for comment in comments %}
+                <div class="comment-list">
+                  <div class="single-comment justify-content-between d-flex">
+                    <div class="user justify-content-between d-flex">
+                        <div class="desc">
+                          <p class="comment">
+                            {{ comment.comment }}
+                          </p>
+                          <div class="d-flex justify-content-between">
+                              <div class="d-flex align-items-center">
+                                <h5 class="mx-2">
+                                  {{ comment.name }}
+                                </h5>
+                                <p class="date">{{ comment.date_sent|date:"d F، Y" }} </p>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+               {% else %}
+               <p class="alert alert-warning">نظری برای این پست ثبت نشده</p>
+               {% endif %}
+            </div>
+            <div class="comment-form">
+               <h4>ارسال نظر</h4>
+               <form class="form-contact comment_form" action="{{ article.get_absolute_url }}" method="post" id="commentForm">
+                {% csrf_token %}
+                  {{form.as_p}}
+                  <div class="form-group">
+                     <button type="submit" class="button button-contactForm btn_1 boxed-btn">ارسال نظر</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         {% render_partial 'blog_app.views.sidebar' %}
+      </div>
+   </div>
+</section>
+<!-- Blog Area End -->
+</main>
+
+{% endblock content %}
+{% block custom_js %}{% endblock custom_js %}
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  {{article_seo.get_charset}}
-  {{article_seo.get_viewport}}
-  {{article_seo.get_keywords}}
-  {{article_seo.get_description}}
-  {{article_seo.get_subject}}
-  {{article_seo.get_author}}
-  {{article_seo.get_refresh}}
+  
+
   <title>{{article.title}}</title>
 </head>
 <body>

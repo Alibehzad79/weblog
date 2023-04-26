@@ -1,0 +1,53 @@
+{% load render_partial %}
+<!doctype html>
+<html class="no-js" lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    {% block seo %}{% endblock seo %}
+    {% block custom_css %}{% endblock custom_css %}
+    <!-- CSS here -->
+    {% include 'base/header_referenced.html' %}
+</head>
+
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start-->
+    <header>
+        <!-- Header Start -->
+        {% render_partial 'home_app.views.header' %}
+        <!-- Header End -->
+    </header>
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer>
+        {% render_partial 'home_app.views.footer' %}
+    </footer>
+
+    <!-- Scroll Up -->
+    <div id="back-top">
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+
+    {% include 'base/footer_referenced.html' %}
+    {% block custom_js %}{% endblock custom_js %}
+</body>
+
+</html>

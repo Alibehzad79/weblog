@@ -2,11 +2,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.db.models.signals import pre_save
+from django.urls import reverse
 # Create your models here.
 
 class ContactModel(models.Model):
     title = models.CharField(max_length=50, verbose_name=_("عنوان"))
-    content = RichTextField(verbose_name=_("محتوا"))
     date_created = models.DateTimeField(auto_now_add=False, verbose_name=_("تاریخ ایجاد"))
     
     class Meta:
@@ -15,6 +15,9 @@ class ContactModel(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("contact:contact")
 
 
 class ContactModelForm(models.Model):
@@ -34,3 +37,16 @@ class ContactModelForm(models.Model):
         
     def __str__(self):
         return self.email
+
+class Telephone(models.Model):
+    contact = models.ForeignKey(ContactModel, on_delete=models.DO_NOTHING, verbose_name=_("تماس با ما"), related_name="telephones")
+    phone = models.CharField(verbose_name=_("شماره تلفن"), max_length=20)    
+
+class Email(models.Model):
+    contact = models.ForeignKey(ContactModel, on_delete=models.DO_NOTHING, verbose_name=_("تماس با ما"), related_name="emails")
+    email = models.EmailField(verbose_name=_("ایمیل"))    
+  
+class Address(models.Model):
+    contact = models.ForeignKey(ContactModel, on_delete=models.DO_NOTHING, verbose_name=_("تماس با ما"), related_name="addresses")
+    address = models.CharField(verbose_name=_("آدرس"), max_length=150)    
+        

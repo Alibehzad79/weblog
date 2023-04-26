@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% load render_partial %}
+{% block seo %}{% endblock seo %}
+{% block title %}{% endblock title %}
+{% block custom_css %}{% endblock custom_css %}
+{% block content %}
+<!-- Banner News Area Start -->
+{% render_partial 'home_app.views.banner_news' %}
+<!-- Banner News Area End -->
+<!-- Latest Posts Area -->
+{% render_partial 'home_app.views.latest_posts' %}
+<!-- Latest Posts End-->
+<!-- Top Posts Start -->
+{% render_partial 'home_app.views.top_posts' %}
+<!-- Top Posts End -->
+<!-- Latest Posts Area -->
+{% render_partial 'home_app.views.popular_posts' %}
+<!-- Latest Posts End-->
+<!-- Want To work -->
+<section class="wantToWork-area gray-bg ">
+    <div class="container">
+        <div class="wants-wrapper w-padding2">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-xl-6 col-lg-7 col-md-10">
+                    <div class="wantToWork-caption wantToWork-caption2">
+                        <h2 class="text-right">از آخرین مقاله ها باخبر شو</h2>
+                        <p class="text-right">با عضویت در خبرنامه، از آخرین مقاله های منتشر شده، با خیر شوید.</p>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-12">
+                    <form action="{% url 'index:index' %}" class="search-box" method="post">
+                        {% csrf_token %}
+                        <div class="input-form">
+                            {{form.email}}
+                        </div>
+                        <div class="search-form text-center">
+                            <button type="submit" class="button btn_1 boxed-btn h-100 w-100 text-center">عضویت</button>
+                        </div>
+                        {% for error in form.email.errors %}
+                            <p class="alert alert-danger text-right w-100">{{error}}</p>
+                        {% endfor %}	
+                    </form>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="alert {% if message.level == 25 %}alert-success {% else %}alert-danger{% endif %} text-right">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Want To work End -->
+{% endblock content %}
+{% block custom_js %}{% endblock custom_js %}

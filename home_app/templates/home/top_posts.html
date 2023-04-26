@@ -1,0 +1,37 @@
+<div class="top-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-tittle mb-35">
+                    <h2>پست های پرطرفدار</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-lg-between">
+            <div class="col-lg-8 col-md-8">
+                {% if top_posts %}
+                    {% for post in top_posts %}
+                        <!-- single-job-content -->
+                        <div class="single-job-items mb-30">
+                            <div class="job-items">
+                                <div class="company-img">
+                                    <a href="{{post.get_absolute_url}}"><img src="{{post.image.url}}" alt="{{post.title}}" width="264" height="214"></a>
+                                </div>
+                                <div class="job-tittle p-4">
+                                    <span class="text-right">{{post.category.name}}</span>
+                                    <a href="{{post.get_absolute_url}}" class="text-right"><h4>{{post.title}}</h4></a>
+                                    <p class="text-right">{{post.content|safe|truncatechars:150}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="google-add mb-40">
+                    <img src="assets/img/gallery/Ad.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="latest-posts pt-80 pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-tittle mb-35">
+                    <h2>آخرین پست ها</h2>
+                </div>
+            </div>
+        </div>
+        <!-- Slider -->
+        <div class="row">
+            {% if latest_posts %}
+                {% for post in latest_posts %}
+                <div class="col-lg-6">
+                    <div class="single-baner-nw2 mb-30 text-center">
+                        <div class="banner-img-cap2">
+                            <div class="banner-img">
+                                <a href="{{post.get_absolute_url}}"><img src="{{post.image.url}}" alt="{{post.title}}" width="558" height="440"></a>
+                            </div>
+                            <div class="banner-cap2">
+                                <p>{{post.category.name}}</p>
+                                <h3><a href="{{post.get_absolute_url}}">{{post.title}}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

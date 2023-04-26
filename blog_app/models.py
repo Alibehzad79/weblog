@@ -42,7 +42,7 @@ class ArticleModel(models.Model):
     category = models.ForeignKey(CategoryModel, on_delete=models.DO_NOTHING,
                                  related_name='categories', verbose_name=_('دسته بندی'))
 
-    tags = models.ManyToManyField(TagModel, verbose_name=_('تگ ها'))
+    tags = models.ManyToManyField(TagModel, verbose_name=_('تگ ها'), related_name='tags')
     reach_count = models.IntegerField(
         default=0, verbose_name=_('تعداد ریچ پست'))
     impression_count = models.IntegerField(
@@ -68,5 +68,15 @@ class ArticleModel(models.Model):
     def get_absolute_url(self):
         return reverse("blog:article_detail", kwargs={"pk": self.pk, "slug": self.slug})
     
+    def get_next_article(self):
+        try:
+            return ArticleModel.objects.get(id=self.id+1)
+        except:
+            return None
+    def get_previous_article(self):
+        try:
+            return ArticleModel.objects.get(id=self.id-1)
+        except:
+            return None    
     # def get_image(self): # config image width & heigth
         # pass
