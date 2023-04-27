@@ -5,13 +5,16 @@ from subscribe_app.forms import SubscribeForm
 from subscribe_app.models import Subscribe
 from datetime import datetime
 from django.contrib import messages
+from site_settings_app.models import Setting
 # Create your views here.
 
 def header(request):
     template_name = 'base/header.html'
     categories = CategoryModel.objects.all()
+    setting = Setting.objects.last()
     context = {
         'categories': categories,
+        'setting': setting,
     }
     return render(request, template_name, context)
 
@@ -35,8 +38,10 @@ def home(request):
 def footer(request):
     template_name = 'base/footer.html'
     categories = CategoryModel.objects.all()
+    setting = Setting.objects.last()
     context = {
         'categories': categories,
+        'setting': setting,
     }
     return render(request, template_name, context)
 
