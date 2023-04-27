@@ -50,11 +50,6 @@ def article_detail(request, *args, **kwargs):
     else:
         form = ArticleCommentForm()
     try:
-        comments = Comment.objects.filter(
-            article=article, status=Comment.Status.read).all()
-    except:
-        comments = None
-    try:
         article_seo = ArticlesSEO.objects.filter(article=article).last()
     except:
         article_seo = None
@@ -66,7 +61,6 @@ def article_detail(request, *args, **kwargs):
     context = {
         'article': article,
         'form': form,
-        'comments': comments,
         'related_articles': related_articles,
         'article_seo': article_seo,
     }

@@ -55,7 +55,6 @@ class ArticleModel(models.Model):
     status = models.CharField(max_length=20, choices=Status.choices,
                               default=Status.unpublished, verbose_name=_('وضعیت'))
 
-    
     objects = ArticleManager()
     class Meta:
         verbose_name = _('مقاله')
@@ -77,6 +76,9 @@ class ArticleModel(models.Model):
         try:
             return ArticleModel.objects.get(id=self.id-1)
         except:
-            return None    
-    # def get_image(self): # config image width & heigth
-        # pass
+            return None
+    
+    def get_comments(self):
+        return self.comments.filter(status="read").all()
+    
+    
