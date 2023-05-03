@@ -1,13 +1,13 @@
 {% extends 'base/base.html' %}
 {% load render_partial %}
 {% block seo %}
-{{article_seo.get_charset}}
-{{article_seo.get_viewport}}
-{{article_seo.get_keywords}}
-{{article_seo.get_description}}
-{{article_seo.get_subject}}
-{{article_seo.get_author}}
-{{article_seo.get_refresh}}
+   {{article_seo.get_charset}}
+   {{article_seo.get_viewport}}
+   {{article_seo.get_keywords}}
+   {{article_seo.get_description}}
+   {{article_seo.get_subject}}
+   {{article_seo.get_author}}
+   {{article_seo.get_refresh}}
 {% endblock seo %}
 {% block title %}{{article.title}}{% endblock title %}
 {% block custom_css %}{% endblock custom_css %}
@@ -20,7 +20,7 @@
            <div class="col-lg-12">
                <nav aria-label="breadcrumb">
                    <ol class="breadcrumb justify-content-center">
-                       <li class="breadcrumb-item"><a href="{% url 'index:index' %}">خانه</a></li>
+                       <li class="breadcrumb-item"><a href="{% url 'base' %}">خانه</a></li>
                        <li class="breadcrumb-item">{{article.title}}</li> 
                    </ol>
                </nav>

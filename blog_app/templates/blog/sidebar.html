@@ -15,11 +15,11 @@
             <ul class="list cat-list">
                 {% if categories %}
                 {% for category in categories %}
-                <li>
-                    <a href="{% url 'blog:article_category' category.slug %}" class="d-flex">
-                        <p>{{category.name}}</p>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{% url 'blog:article_category' category.slug %}" class="d-flex">
+                            <p>{{category.name}}</p>
+                        </a>
+                    </li>
                 {% endfor %}
                 {% else %}
                 <p class="alert alert-warning">دسته بندی یافت نشد</p>

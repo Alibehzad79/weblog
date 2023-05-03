@@ -8,6 +8,8 @@ from datetime import datetime
 from seo_app.models import ArticlesSEO
 from category_app.models import CategoryModel
 from tag_app.models import TagModel
+from category_app.models import CategoryModel
+from seo_app.models import ArticleListSeo
 # Create your views here.
 
 
@@ -22,7 +24,7 @@ class ArticleListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["seo"] = 'Article list SEO'
+        context['seo'] = ArticleListSeo.objects.last()
         return context
 
 
@@ -79,6 +81,7 @@ class CategoryModelListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["category_name"] = self.kwargs['category_slug']
+        context["category"] = CategoryModel.objects.filter(slug=self.kwargs['category_slug'])
         return context
     
 
@@ -94,6 +97,7 @@ class TagModelListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tag_name"] = self.kwargs['tag_slug']
+        context["tag"] = CategoryModel.objects.filter(slug=self.kwargs['tag_slug'])
         return context
 
 def send_emails(emails, subject, text):

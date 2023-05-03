@@ -1,5 +1,8 @@
 {% extends 'base/base.html' %}
-{% block seo %}{% endblock seo %}
+{% block seo %}
+    {{about.get_description}}
+    {{about.get_keywords}}
+{% endblock seo %}
 {% block title %}{{about.title}}{% endblock title %}
 {% block custom_css %}{% endblock custom_css %}
 {% block content %}
@@ -12,7 +15,7 @@
                 <div class="col-lg-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a href="{% url 'index:index' %}">خانه</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'base' %}">خانه</a></li>
                             <li class="breadcrumb-item">درباره ما</li> 
                         </ol>
                     </nav>

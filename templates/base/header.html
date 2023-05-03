@@ -29,7 +29,11 @@
                                        <li><a href="{% url 'blog:articles_list'  %}">مقاله ها</a></li>
                                        <li><a href="{% url 'about:about'  %}">درباره ما</a></li>
                                        <li><a href="{% url 'contact:contact'  %}">تماس با ما</a></li>
-                                       <li><a href="login.html">ورود یا ثبت نام</a></li>
+                                       {% if request.user.is_authenticated %}
+                                       <li><a href="{% url 'accounts:logout' %}" class="text-danger">خروج</a></li>
+                                       {% else %}
+                                       <li><a href="{% url 'accounts:login' %}">ورود یا ثبت نام</a></li>
+                                       {% endif %}
                                        
                                    </ul>
                                    <!-- Social -->

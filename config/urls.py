@@ -28,11 +28,11 @@ sitemaps = {
     'contact': ContactModelSitemap,
 }
 
-from home_app.views import home
+from home_app.views import base
 
 urlpatterns = [
-    path('', home),
-    path('', include('home_app.urls')),
+    path('', base, name='base'),
+    path('accounts/', include('accounts_app.urls')),
     path('articles/', include('blog_app.urls')),
     path('about/', include('about_app.urls')),
     path('contact/', include('contact_app.urls')),

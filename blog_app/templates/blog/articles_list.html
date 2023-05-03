@@ -1,19 +1,30 @@
 {% extends 'base/base.html' %}
 {% load render_partial %}
-{% block seo %}{% endblock seo %}
+{% block seo %}
+  {% if category %}
+    {{category.get_description}}
+    {{category.get_keywords}}
+  {% endif %}
+  {% if tag %}
+    {{tag.get_description}}
+    {{tag.get_keywords}}
+  {% endif %}
+  {% if seo %}
+    {{seo.get_description}}
+    {{seo.get_keywords}}
+  {% endif %}
+{% endblock seo %}
 {% block custom_css %}{% endblock custom_css %}
-{% block title %}{% endblock title %}
+{% block title %}لیست مقاله ها{% endblock title %}
 {% block content %}
 
-<main>
-  <!-- breadcrumb Start-->
   <div class="page-notification">
       <div class="container">
           <div class="row">
               <div class="col-lg-12">
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb justify-content-center">
-                          <li class="breadcrumb-item"><a href="{% url 'index:index' %}">خانه</a></li>
+                          <li class="breadcrumb-item"><a href="{% url 'base' %}">خانه</a></li>
                           <li class="breadcrumb-item">مقاله ها</li> 
                           {% if category_name %}
                           <li class="breadcrumb-item">{{category_name}}</li> 
@@ -95,7 +106,6 @@
       </div>
   </section>
   <!-- Blog Area End -->
-</main>
 
 
 {% endblock content %}

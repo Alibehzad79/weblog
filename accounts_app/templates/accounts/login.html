@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% block seo %}{% endblock seo %}
+{% block title %}صفحه ورود{% endblock title %}
+{% block custom_css %}{% endblock custom_css %}
+{% block content %}
+<div class="page-notification">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'base' %}">خانه</a></li>
+                        <li class="breadcrumb-item">ورود</li> 
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-form-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 col-lg-8">
+                <form action="{% url 'accounts:login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="login-form">
+                        <!-- Login Heading -->
+                        <div class="login-heading">
+                            <span>ورود</span>
+                            <p>لطفا مشخصات اکانت خود را وارد کنید</p>
+                        </div>
+                        <!-- Single Input Fields -->
+                        <div class="input-box">
+                            <div class="single-input-fields">
+                                <label>{{form.email.label}}</label>
+                                {{form.email}}
+                                {% for error in form.email.errors %}
+                                    <p class="alert alert-danger">{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="single-input-fields">
+                                <label>{{form.password.label}}</label>
+                                {{form.password}}
+                            </div>
+                            <div class="single-input-fields login-check">
+                                {{form.remember_me}}
+                                <label for="fruit1">منو بخاطر بسپار</label>
+                            <a href="#" class="f-right">رمزت رو فراموش کردی؟</a>
+                            </div>
+                        </div>
+                        <!-- form Footer -->
+                        <div class="login-footer">
+                            <p>اکانت نداری؟<a href="{% url 'accounts:sign_up' %}">ثبت نام</a></p>
+                            <button class="submit-btn3" type="submit">ورود</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block custom_js %}{% endblock custom_js %}

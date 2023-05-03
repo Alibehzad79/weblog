@@ -1,7 +1,7 @@
 {% extends 'base\base.html' %}
 {% block seo %}{% endblock seo %}
 {% block custom_css %}{% endblock custom_css %}
-{% block title %}{% endblock title %}
+{% block title %}{{query}}{% endblock title %}
 {% block content %}
 <main>
     <!-- breadcrumb Start-->
@@ -11,7 +11,7 @@
                 <div class="col-lg-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a href="{% url 'index:index' %}">خانه</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'base' %}">خانه</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-tittle mb-35">
-                        <h2>{{request.GET.q}}</h2>
+                        <h2 class="text-left">{{request.GET.q}}</h2>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-tittle mb-35">
-                        <h2>آخرین پست ها</h2>
+                        <h2 class="text-left">آخرین پست ها</h2>
                     </div>
                 </div>
             </div>

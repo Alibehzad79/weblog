@@ -61,3 +61,45 @@ class ArticlesSEO(models.Model):
             return html.format_html(f'<meta name="author" content="{self.author_name}">')
         else:
             return html.format_html(f'<meta name="author" content="{self.article.author.get_username}">')
+
+class HomePageSeo(models.Model):
+    keywords = models.TextField(verbose_name=_("کلمات کلیدی"), help_text=_(
+        "جدا سازی با کامای انگلیسی - مثال: مقاله, مقاله۲"), blank=True)
+    description = models.CharField(max_length=160, verbose_name=_(
+        "توضیحات"), help_text=_("حداکثر 160 کاراکتر"))
+    
+
+    class Meta:
+        verbose_name = _("صفحه ی خانه")
+        verbose_name_plural = _("صفحه ی خانه")
+
+    def __str__(self):
+        return self.keywords
+
+    def get_keywords(self):
+        if self.keywords is not '':
+            return html.format_html(f'<meta name="keywords" content="{self.keywords}">')
+    def get_description(self):
+        if self.description is not '':
+            return html.format_html(f'<meta name="description" content="{self.description}">')
+
+class ArticleListSeo(models.Model):
+    keywords = models.TextField(verbose_name=_("کلمات کلیدی"), help_text=_(
+        "جدا سازی با کامای انگلیسی - مثال: مقاله, مقاله۲"), blank=True)
+    description = models.CharField(max_length=160, verbose_name=_(
+        "توضیحات"), help_text=_("حداکثر 160 کاراکتر"))
+    
+
+    class Meta:
+        verbose_name = _("صفحه لیست مقاله ها")
+        verbose_name_plural = _("صفحه لیست مقاله ها")
+
+    def __str__(self):
+        return self.keywords
+
+    def get_keywords(self):
+        if self.keywords is not '':
+            return html.format_html(f'<meta name="keywords" content="{self.keywords}">')
+    def get_description(self):
+        if self.description is not '':
+            return html.format_html(f'<meta name="description" content="{self.description}">')

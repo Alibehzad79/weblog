@@ -8,6 +8,7 @@ class Setting(models.Model):
     site_address = models.URLField(verbose_name=_("آدرس سایت"), max_length=200)
     computer_logo = models.ImageField(verbose_name=_("لوگوی سایت برای کامپیوتر"), upload_to='images/logos/', help_text=_("72 * 394"))
     mobile_logo = models.ImageField(verbose_name=_("لوگوی سایت برای موبایل"), upload_to='images/logos/', help_text=_("56 * 202"))
+    short_icon = models.ImageField(verbose_name=_("شورت آیکن"), upload_to='images/logos/', help_text=_("56 * 202"))
     copy_right = models.CharField(verbose_name=_("متن کپی رایت"), max_length=250)
     
 

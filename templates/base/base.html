@@ -5,11 +5,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{% block title %} {{settings.site_name}} | خانه{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    {% block seo %}{% endblock seo %}
+    {% render_partial 'home_app.views.fovicon' %}
+    {% block seo %}
+        {% if seo %}
+            {{seo.get_description}}
+            {{seo.get_keywords}}
+        {% endif %}
+    {% endblock seo %}
     {% block custom_css %}{% endblock custom_css %}
     <!-- CSS here -->
     {% include 'base/header_referenced.html' %}
@@ -17,24 +22,62 @@
 
 <body>
     <!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+    {% render_partial 'home_app.views.loader' %}
     <!-- Preloader Start-->
     <header>
         <!-- Header Start -->
         {% render_partial 'home_app.views.header' %}
         <!-- Header End -->
     </header>
-    <main>
-        {% block content %}{% endblock content %}
+    <main class="text-right">
+        {% block content %}
+                    <!-- Banner News Area Start -->
+        {% render_partial 'home_app.views.banner_news' %}
+        <!-- Banner News Area End -->
+        <!-- Latest Posts Area -->
+        {% render_partial 'home_app.views.latest_posts' %}
+        <!-- Latest Posts End-->
+        <!-- Top Posts Start -->
+        {% render_partial 'home_app.views.top_posts' %}
+        <!-- Top Posts End -->
+        <!-- Latest Posts Area -->
+        {% render_partial 'home_app.views.popular_posts' %}
+        <!-- Latest Posts End-->
+        <!-- Want To work -->
+        <section class="wantToWork-area gray-bg ">
+            <div class="container">
+                <div class="wants-wrapper w-padding2">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-xl-6 col-lg-7 col-md-10">
+                            <div class="wantToWork-caption wantToWork-caption2">
+                                <h2 class="text-right">از آخرین مقاله ها باخبر شو</h2>
+                                <p class="text-right">با عضویت در خبرنامه، از آخرین مقاله های منتشر شده، با خیر شوید.</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-12">
+                            <form action="{% url 'base' %}" class="search-box" method="post">
+                                {% csrf_token %}
+                                <div class="input-form">
+                                    {{form.email}}
+                                </div>
+                                <div class="search-form text-center">
+                                    <button type="submit" class="button btn_1 boxed-btn h-100 w-100 text-center">عضویت</button>
+                                </div>
+                                {% for error in form.email.errors %}
+                                    <p class="alert alert-danger text-right w-100">{{error}}</p>
+                                {% endfor %}	
+                            </form>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p class="alert {% if message.level == 25 %}alert-success {% else %}alert-danger{% endif %} text-right">{{message}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock content %}
     </main>
 
     <footer>

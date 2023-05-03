@@ -31,5 +31,6 @@ class SearchArticleListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["last_posts"] = latest_posts = ArticleModel.objects.order_by('-date_created').all()[:3]
+        context['query'] = query = self.request.GET.get('q')
         return context
         
