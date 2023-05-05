@@ -166,3 +166,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'cdn', 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts_app.CustomUser'
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "test@test.com"
