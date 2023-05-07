@@ -37,6 +37,11 @@
         <!-- Latest Posts Area -->
         {% render_partial 'home_app.views.latest_posts' %}
         <!-- Latest Posts End-->
+        {% if ads != None %}
+            <div class="container mb-5">
+                <a href="{{ads.url}}"><img src="{{ads.file.url}}" alt="{{ads.title}}" class="w-100" height="200"></a>
+            </div>
+        {% endif %}
         <!-- Top Posts Start -->
         {% render_partial 'home_app.views.top_posts' %}
         <!-- Top Posts End -->

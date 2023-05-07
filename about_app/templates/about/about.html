@@ -40,6 +40,11 @@
         </div>
     </div>
     <!-- About Details End -->
+    {% if ads != None %}
+        <div class="container">
+            <a href="{{ads.url}}"><img src="{{ads.file.url}}" alt="{{ads.title}}" class="w-100" height="200"></a>
+        </div>
+    {% endif %}
 </main>
 {% else %}
 <p class="p-4 text-center bg-primary text-white">درباره ما</p>

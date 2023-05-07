@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from about_app.models import AboutModel
-from django.http import HttpResponseNotFound
+from ads_app.models import AboutPageAds
 # Create your views here.
 
 def about_page(request):
@@ -9,7 +9,9 @@ def about_page(request):
         about = AboutModel.objects.last()
     except:
         about = None
+    ads = AboutPageAds.objects.last()
     context = {
         'about': about,
+        'ads': ads,
     }
     return render(request, template_name, context)

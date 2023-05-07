@@ -46,6 +46,9 @@
                      <li class="mx-1"><i class="fa fa-comments"></i> {{article.get_comments.count}}</li>
                   </ul>
                   {{article.content|safe}}
+                  {% if ads != None %}
+                     <a href="{{ads.url}}"><img src="{{ads.file.url}}" alt="{{ads.title}}" class="w-100" height="200"></a>
+                  {% endif %}
                   <div class="mt-3">
                     <span class="ml-3"><i class="fa fa-book mx-2"></i>دسته بندی: </span>
                     <a href="{% url 'blog:article_category' article.category.slug %}">{{article.category.name}}</a>
@@ -58,7 +61,8 @@
                     {% endfor %}
                   </div>
                </div>
-            </div>
+               </div>
+               
             <div class="navigation-top">
                <div class="d-sm-flex justify-content-between text-center">
                   <div class="col-sm-4 text-center my-2 my-sm-0">

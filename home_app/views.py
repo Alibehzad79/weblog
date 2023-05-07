@@ -7,6 +7,7 @@ from datetime import datetime
 from django.contrib import messages
 from site_settings_app.models import Setting
 from seo_app.models import HomePageSeo
+from ads_app.models import HomePageAds
 # Create your views here.
 
 def base(request):
@@ -23,10 +24,12 @@ def base(request):
                 return redirect('base')
     else:
         form = SubscribeForm()
+    ads = HomePageAds.objects.last()
     context = {
         'form':form,
         'seo': seo,
         'settings': settings,
+        'ads': ads,
     }
     return render(request, template_name, context)
 

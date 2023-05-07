@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from contact_app.models import ContactModel, ContactModelForm
 from contact_app.forms import ContactForm
 from datetime import datetime
+from ads_app.models import ContactPageAds
 # Create your views here.
 
 
@@ -24,8 +25,10 @@ def contact_page(request):
                 return redirect('contact:contact')
     else:
         form = ContactForm()
+    ads = ContactPageAds.objects.last()    
     context = {
         'contact': contact,
         'form': form,
+        'ads': ads,
     }
     return render(request, template_name, context)

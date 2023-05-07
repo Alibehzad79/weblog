@@ -10,6 +10,7 @@ from category_app.models import CategoryModel
 from tag_app.models import TagModel
 from category_app.models import CategoryModel
 from seo_app.models import ArticleListSeo
+from ads_app.models import ArticlePageAds
 # Create your views here.
 
 
@@ -60,11 +61,16 @@ def article_detail(request, *args, **kwargs):
     article.reach_count += 1  # TODO config with user IP
     article.impression_count += 1
     article.save()
+    try:
+        ads = ArticlePageAds.objects.filter(article=article, active=True).last()
+    except:
+        ads = False   
     context = {
         'article': article,
         'form': form,
         'related_articles': related_articles,
         'article_seo': article_seo,
+        'ads': ads,
     }
     return render(request, template_name, context)
 

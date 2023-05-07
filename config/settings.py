@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'search_app.apps.SearchAppConfig',
     'subscribe_app.apps.SubscribeAppConfig',
     'site_settings_app.apps.SiteSettingsAppConfig',
+    'ads_app.apps.AdsAppConfig',
     # packages
     'django_render_partial',
     'ckeditor',
