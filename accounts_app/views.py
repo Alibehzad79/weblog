@@ -7,6 +7,7 @@ from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
 from site_settings_app.models import Setting
 from config import settings
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def login_view(request):
     template_name = 'accounts/login.html'
@@ -128,4 +129,54 @@ def password_reset_complete(request):
     }  
     return render(request, template_name, context) 
 
+# @login_required(login_url="accounts:login")
+# def admin_index(request):
+#     template_name = 'accounts/admin_dashboard/index.html'
+#     if not request.user.is_superuser:
+#         return redirect('base')
+    
+#     user = request.user
+    
+#     context = {
+#         'message': 'Admin index page',
+#     }
+#     return render(request, template_name, context)
 
+# @login_required(login_url="accounts:login")
+
+# def dashboard_sidebar(request):
+#     template_name = 'accounts/admin_dashboard/sidebar.html'
+#     if not request.user.is_superuser:
+#         return redirect('base')
+    
+#     user = request.user
+    
+#     context = {
+#         'message': 'Admin index page',
+#     }
+#     return render(request, template_name, context)
+
+
+# def dashboard_header(request):
+#     template_name = 'accounts/admin_dashboard/header.html'
+#     if not request.user.is_superuser:
+#         return redirect('base')
+    
+#     user = request.user
+    
+#     context = {
+#         'message': 'Admin index page',
+#     }
+#     return render(request, template_name, context)
+
+# def dashboard_footer(request):
+#     template_name = 'accounts/admin_dashboard/footer.html'
+#     if not request.user.is_superuser:
+#         return redirect('base')
+    
+#     user = request.user
+    
+#     context = {
+#         'message': 'Admin index page',
+#     }
+#     return render(request, template_name, context)
