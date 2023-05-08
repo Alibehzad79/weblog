@@ -29,7 +29,8 @@ sitemaps = {
 }
 
 from home_app.views import base
-
+from django.conf.urls import handler404
+from config.views import error_404
 urlpatterns = [
     path('', base, name='base'),
     path('accounts/', include('accounts_app.urls')),
@@ -42,6 +43,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
+handler404 = error_404
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
